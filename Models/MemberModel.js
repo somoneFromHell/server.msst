@@ -13,6 +13,9 @@ const MemberSchema = new mongoose.Schema(
             required: [true, 'Please provide your last name'],
             trim: true,
         },
+        image: {
+            type: String,
+        },
         dateOfBirth: {
             type: Date,
             required: [true, 'Please provide your date of birth'],
