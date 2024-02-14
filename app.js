@@ -58,7 +58,7 @@ app.use(xss()); // <- Data Sanitization against xss
 
 app.use(compression());
 
-app.use('/api/v1/AnimalReportImage',express.static('public/Images/RportedAnimals'))
+app.use('/api/v1/member-img',express.static('/Uploads/Member-images'))
 
 app.use('/api/v1/donations', donationRouter);
 app.use('/api/v1/members', memberRouter);

@@ -16,10 +16,7 @@ const MemberSchema = new mongoose.Schema(
         image: {
             type: String,
         },
-        dateOfBirth: {
-            type: Date,
-            required: [true, 'Please provide your date of birth'],
-        },
+        
         bloodGroup: {
             type: String,
             enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
@@ -39,26 +36,18 @@ const MemberSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        country: {
+       
+        villageOrcity: {
             type: String,
             trim: true,
         },
-        state: {
-            type: String,
-            trim: true,
-        },
-        city: {
+        district: {
             type: String,
             trim: true,
         },
         RequestAccepted: {
             type: Boolean,
             default:false
-        },
-        zipCode:{
-            type: String,
-            required: [true, 'Please provide your zip code'],
-            trim: true,
         },
         address: {
             type: String,

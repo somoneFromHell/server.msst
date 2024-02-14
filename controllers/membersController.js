@@ -55,7 +55,12 @@ const replacePlaceholders = (template, custommerPlaceholders) => {
 };
 
 exports.addMember = catchAsync(async (req, res, next) => {
-    const response = await Member.create(req.body);
+    console.log(req)
+
+    const body = req.body;
+    body.image = req.file.filename
+
+    const response = await Member.create(body);
     const custommerPlaceholders = {
         "##name##": response.firstName + " " + response.lastName,
         "##email##": response.email,
@@ -71,7 +76,7 @@ exports.addMember = catchAsync(async (req, res, next) => {
     );
 
     transporter.sendMail({
-        from: process.env.EMAIL_USER || "akash@barodaweb.net",
+        from: process.env.EMAIL_USER,
         to: response.email,
         subject: 'New Membership Request',
         html: updatedTemplate,
@@ -79,10 +84,11 @@ exports.addMember = catchAsync(async (req, res, next) => {
         (error, info) => {
             if (error) {
                 updateRecordLogMembers(response._id,`Error sending email :${error}`)
-               
+               console.log("email Error")
             } else {
                 
                 updateRecordLogMembers(response._id,`Email sent :${info.response}`)
+                console.log("email success")
 
             }
         })
