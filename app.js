@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 
 const donationRouter = require('./routes/donationRoutes');
 const memberRouter = require('./routes/memberRoutes')
+const authRouter = require('./routes/authRouts')
 const AppError = require('./utils/appError');
 const errorController = require('./controllers/errorController');
 
@@ -62,6 +63,7 @@ app.use('/api/v1/member-img',express.static('/Uploads/Member-images'))
 
 app.use('/api/v1/donations', donationRouter);
 app.use('/api/v1/members', memberRouter);
+app.use('/api/v1/auth', authRouter);
 
 
 app.all('*', (req, res, next) => {	

@@ -6,7 +6,7 @@ const { updateRecordLogMembers } = require('../services/RecordLogService');
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
-    port: 587,
+    port: process.env.EMAIL_PORT,
     secure: false,
     auth: {
         user: process.env.EMAIL_USER,
@@ -55,11 +55,11 @@ const replacePlaceholders = (template, custommerPlaceholders) => {
 };
 
 exports.addMember = catchAsync(async (req, res, next) => {
-    console.log(req)
 
     const body = req.body;
     body.image = req.file.filename
-
+console.log("email",process.env.EMAIL_USER)
+console.log("pass______________",process.env.EMAIL_PASS)
     const response = await Member.create(body);
     const custommerPlaceholders = {
         "##name##": response.firstName + " " + response.lastName,
@@ -76,7 +76,7 @@ exports.addMember = catchAsync(async (req, res, next) => {
     );
 
     transporter.sendMail({
-        from: process.env.EMAIL_USER,
+        from: process.env.ADMIN_EMAIL,
         to: response.email,
         subject: 'New Membership Request',
         html: updatedTemplate,
