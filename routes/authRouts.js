@@ -4,11 +4,9 @@ const { decodeTokenMiddleware } = require('../middlewere/decodeTokenMiddleware')
 
 const Router = express.Router();
 
-
-
 Router.post('/login', authController.loginUser);
 Router.post('/createUser', authController.createUser);
-Router.post('/getLoggedInUser',decodeTokenMiddleware, authController.getLoggedInUser);
+Router.get('/getLoggedInUser',decodeTokenMiddleware, authController.getLoggedInUser);
 
 
 module.exports = Router;

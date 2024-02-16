@@ -47,7 +47,7 @@ module.exports.loginUser = catchAsync(async (req, res, next) => {
 
 
   module.exports.getLoggedInUser = catchAsync(async(req,res)=>{
-    const userId = req.user.id;
+    const userId = req.user;
 
     const user = await userModel.findById(userId);
 
