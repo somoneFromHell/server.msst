@@ -74,16 +74,3 @@ app.use(errorController);
 
 module.exports = app;
 
-
-// DATABASE_CONNECTION_STRING = mongodb+srv://rango:wUDPbtLUp7ZDQZQr@cluster0.2bxued0.mongodb.net/mahakal_db?retryWrites=true&w=majority
-
-// REMOTE = <example.com>
-// DEPLOYMENT_URL = <example.com>
-
-// REMOTE = example.com
-// EMAIL_HOST = smtp.gmail.com
-// EMAIL_USER = dnitesh2217@gmail.com
-// EMAIL_PASS = xseavfochehsgvam 
-// EMAIL_PORT = 587
-
-// ADMIN_EMAIL = mitesh96625@gmail.com
