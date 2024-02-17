@@ -84,7 +84,6 @@ const sendErrorProd = (err, req, res) => {
 			});
 	}
 
-	// Website + Not Operational ->
 	return res
 		.status(err.statusCode)
 		.set(

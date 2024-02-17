@@ -1,12 +1,11 @@
 const express = require("express");
 const {
-    getGallaryCatById,
-    getGallaryCategories,
-    addNewGallaryCategory,
-    updateGallaryCat,
-    deleteGallaeyCat,
-    getAllIncDel,
-} = require("../controllers/gallaryCategoryMaster");
+    getGallaryItems,
+    addNewImageInGallary,
+    getGallaryItemById,
+    updateGallaryItem,
+    deleteGallaeyItem,
+} = require("../controllers/galleryController");
 const router = express.Router();
 const multer = require("multer");
 
@@ -17,7 +16,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const originalFileName = file.originalname;
     const extension = originalFileName.split(".").pop();
-    const newFileName = `${Date.now()}_gallary.${extension}`;
+    const newFileName = `${Date.now()}_gallary_Image.${extension}`;
     cb(null, newFileName);
   },
 });
@@ -32,11 +31,10 @@ const imageFileFilter = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 
-router.get("/", getGallaryCategories);
-router.get("/all", getAllIncDel);
-router.post("/", upload.single("imagePath"), addNewGallaryCategory);
-router.get("/:id", getGallaryCatById);
-router.put("/:id", upload.single("imagePath"), updateGallaryCat);
-router.delete("/:id", deleteGallaeyCat);
+router.get("/", getGallaryItems);
+router.post("/", upload.single("imagePath"), addNewImageInGallary);
+router.get("/:id", getGallaryItemById);
+router.put("/:id", upload.single("imagePath"), updateGallaryItem);
+router.delete("/:id", deleteGallaeyItem);
 
 module.exports = router;

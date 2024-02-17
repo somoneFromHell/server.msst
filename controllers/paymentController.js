@@ -17,8 +17,7 @@ const newPayment = catchAsync(async (req, res) => {
         merchantUserId: req.body.MUID,
         name: req.body.name,
         amount: req.body.amount * 100,
-        // redirectUrl: `${process.env.REMOTE}/paymentStatus/${merchantTransactionId}`,
-        redirectUrl: `https://www.wikipedia.org/`,
+        redirectUrl: `${process.env.REMOTE}/paymentStatus/${merchantTransactionId}`,
         redirectMode: 'POST',
         mobileNumber: req.body.number.toString(),
         paymentInstrument: {

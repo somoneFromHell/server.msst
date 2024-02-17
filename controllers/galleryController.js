@@ -1,4 +1,4 @@
-const gallaryMasterModel = require("../models/galleryMasterModel");
+const gallaryMasterModel = require("../Models/galleryModel");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
