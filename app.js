@@ -20,7 +20,7 @@ const errorController = require('./controllers/errorController');
 
 const app = express();
 
-dotenv.config({ path: './.env' }); 
+dotenv.config({ path: './.env' });
 
 
 console.log('REMOTE: ', process.env.REMOTE);
@@ -29,36 +29,38 @@ app.use(cors());
 app.options(process.env.REMOTE, cors());
 
 console.log(`ENV = ${process.env.NODE_ENV}`);
-app.use(morgan('dev')); 
+app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 const limiter = rateLimit({
-    max: 1000, 
-    windowMs: 60 * 60 * 1000,
-    message:
-        '!!! Too many requests from this IP, Please try again in 1 hour !!!',
+  max: 1000,
+  windowMs: 60 * 60 * 1000,
+  message:
+    '!!! Too many requests from this IP, Please try again in 1 hour !!!',
 });
 
 app.use('/api/v1', limiter);
 
 app.use((req, res, next) => {
- 
 
-    req.requestTime = new Date().toISOString();
-    console.log(req.requestTime);
-    if (req.cookies) console.log(req.cookies);
-    next();
+
+  req.requestTime = new Date().toISOString();
+  console.log(req.requestTime);
+  if (req.cookies) console.log(req.cookies);
+  next();
 });
 
 app.use((req, res, next) => {
-    res.setHeader('Content-Type', 'application/json');
-    next();
+  res.setHeader('Content-Type', 'application/json');
+  next();
 });
 
 app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ extended: true, limit: '100mb' })); 
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
-app.use(mongoSanitize()); 
-app.use(xss()); 
+app.use(mongoSanitize());
+app.use(xss());
 
 app.use(compression());
 
@@ -86,7 +88,7 @@ app.get("/", (req, res) => {
 });
 
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on the server`, 404));
+  next(new AppError(`Can't find ${req.originalUrl} on the server`, 404));
 });
 
 app.use(errorController);
