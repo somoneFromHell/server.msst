@@ -25,9 +25,20 @@ process.on('unCaughtException', (err) => {
 
 // Starting Server ->>
 const port = process.env.PORT || 8000;
-const server = app.listen(port, () => {
-	console.log(`App running at port`, (`${port}`), '...');
-});
+
+
+let server
+
+try {
+
+	server = app.listen(port, () => {
+		console.log(`App running at port`, (`${port}`), '...');
+	});
+
+} catch (err) {
+	console.log("ERR", err)
+}
+
 
 
 // Catching unHandleled Rejections ->
@@ -36,7 +47,7 @@ process.on('unhandledRejection', (err) => {
 	console.log(err);
 	console.log('App SHUTTING DOWN...');
 	server.close(() => {	// <- This will first terminate all requests
-		
+
 		process.exit(1); // <- Then will shut down the server.
 	});
 });

@@ -17,7 +17,7 @@ const newPayment = catchAsync(async (req, res) => {
         merchantUserId: req.body.MUID,
         name: req.body.name,
         amount: req.body.amount * 100,
-        redirectUrl: `${process.env.REMOTE}/paymentStatus/${merchantTransactionId}`,
+        redirectUrl: `http://localhost:3000/paymentStatus/${merchantTransactionId}`,
         redirectMode: 'POST',
         mobileNumber: req.body.number.toString(),
         paymentInstrument: {
@@ -69,23 +69,22 @@ const checkStatus = async (req, res) => {
         const merchantId = process.env.PHONEPAY_MERCHANT_ID;
 
         const keyIndex = 1;
-        const string =
-            `/pg/v1/status/${merchantId}/${merchantTransactionId}` +
-            process.env.PHONEPAY_SALT_KEY;
+        const string = `/pg/v1/status/${merchantId}/${merchantTransactionId}${process.env.PHONEPAY_SALT_KEY}`;
         const sha256 = crypto.createHash('sha256').update(string).digest('hex');
-        const checksum = sha256 + '###' + keyIndex;
+        const checksum = sha256 + "###" + keyIndex;
+
 
         const options = {
-            method: 'GET',
-            url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
+            method: 'get',
+            url: `https://apps-uat.phonepe.com/v3/transaction/${merchantId}/${merchantTransactionId}/status`,
             headers: {
-                accept: 'application/json',
-                'Content-Type': 'application/json',
-                'X-VERIFY': checksum,
-                'X-MERCHANT-ID': `${merchantId}`,
+                accept: 'text/plain',
             },
+
         };
 
+
+        console.log(options)
         const response = await axios.request(options);
 
         if (response.data.success === true) {
@@ -94,21 +93,24 @@ const checkStatus = async (req, res) => {
             return res.redirect(getFailureRedirectURL());
         }
     } catch (error) {
-        console.error('Error in checkStatus:', error);
+        console.error("Error in checkStatus:", error);
 
-        return res.status(500).send('Internal Server Error');
+        return res.status(500).send("Internal Server Error");
     }
 };
 
 const getSuccessRedirectURL = () => {
+
     return `https://pushtishangar.com/success`;
 };
 
 const getFailureRedirectURL = () => {
+
     return `https://pushtishangar.com/failure`;
 };
 
+
 module.exports = {
     newPayment,
-    checkStatus,
-};
+    checkStatus
+}
