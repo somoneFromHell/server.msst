@@ -1,17 +1,17 @@
 const express = require("express");
 const {
-    getGallaryItems,
-    addNewImageInGallary,
-    getGallaryItemById,
-    updateGallaryItem,
-    deleteGallaeyItem,
+  getGallaryItems,
+  addNewImageInGallary,
+  getGallaryItemById,
+  updateGallaryItem,
+  deleteGallaeyItem,
 } = require("../controllers/galleryController");
 const router = express.Router();
 const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "content/gallery/");
+    cb(null, "Uploads/gallery/");
   },
   filename: (req, file, cb) => {
     const originalFileName = file.originalname;

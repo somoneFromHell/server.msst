@@ -22,7 +22,7 @@ const newDonation = catchAsync(async (req, res) => {
         merchantUserId: req.body.MUID,
         name: req.body.name,
         amount: req.body.amount * 100,
-        redirectUrl: `http://localhost:3000/paymentStatus/${merchantTransactionId}`,
+        redirectUrl: `http://localhost:8000/api/v1/donate/status/${merchantTransactionId}`,
         redirectMode: 'POST',
         mobileNumber: req.body.phone.toString(),
         paymentInstrument: {
@@ -74,8 +74,10 @@ const checkStatus = async (req, res) => {
         const merchantTransactionId = req.params.transactionId;
         const merchantId = process.env.PHONEPAY_MERCHANT_ID;
 
+        return res.redirect(getSuccessRedirectURL());
         const keyIndex = 1;
         const string = `/v3/transaction/${merchantId}/${merchantTransactionId}/status${process.env.PHONEPAY_SALT_KEY}`;
+
         const sha256 = crypto.createHash('sha256').update(string).digest('hex');
         const checksum = sha256 + "###" + keyIndex;
 
@@ -85,8 +87,9 @@ const checkStatus = async (req, res) => {
             url: `https://mercury-uat.phonepe.com/enterprise-sandbox/v3/transaction/${merchantId}/${merchantTransactionId}/status`
             // url: `https://apps-uat.phonepe.com/v3/transaction/${merchantId}/${merchantTransactionId}/status`,
             , headers: {
-                accept: 'text/plain',
+                accept: 'application/json',
                 'X-VERIFY': checksum,
+                'X-MERCHANT-ID': `${merchantId}`
             },
 
         };
@@ -109,7 +112,7 @@ const checkStatus = async (req, res) => {
 
 const getSuccessRedirectURL = () => {
 
-    return `https://pushtishangar.com/success`;
+    return process.env.REMOTE;
 };
 
 const getFailureRedirectURL = () => {

@@ -3,23 +3,22 @@ const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
 exports.getGallaryItems = catchAsync(async (req, res, next) => {
-  const recordExists = await gallaryMasterModel.find({ deleted: false });
+  const recordExists = await gallaryMasterModel.find();
   if (recordExists.length === 0) {
     return res.status(204).end();
   }
-  return res.status(200).json({ data: recordExists });
+  return res.status(200).json(recordExists);
 });
 
 exports.addNewImageInGallary = catchAsync(async (req, res, next) => {
+  console.log("called")
   const body = {
-    imageTitle: req.body.imageTitle,
-    description: req.body.description,
-    gallaryCategoryId:req.body.gallaryCategoryId,
-    imagePath: req.file ? req.file.filename : "",
+    order: req.body.order,
+    imagePath: req.file ? req.file.filename : "not given",
   };
   const ItemIsUnique =
     (await gallaryMasterModel.find({
-        imageTitle: req.body.imageTitle,
+      imageTitle: req.body.imageTitle,
       deleted: false,
     }).count()) === 0;
   if (ItemIsUnique) {
@@ -54,8 +53,8 @@ exports.updateGallaryItem = catchAsync(async (req, res, next) => {
   const updateData = {
     imageTitle: req.body.imageTitle,
     description: req.body.description,
-    gallaryCategoryId:req.body.gallaryCategoryId,
-    active:req.body.active,
+    gallaryCategoryId: req.body.gallaryCategoryId,
+    active: req.body.active,
     updatedAt: Date.now(),
   };
 
