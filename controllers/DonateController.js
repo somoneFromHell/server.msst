@@ -79,7 +79,7 @@ const checkStatus = async (req, res) => {
         const sha256 = crypto.createHash('sha256').update(string).digest('hex');
         const checksum = sha256 + "###" + keyIndex;
 
-
+        console.log("x - varify", checksum)
         const options = {
             method: 'get',
             url: `https://mercury-uat.phonepe.com/enterprise-sandbox/v3/transaction/${merchantId}/${merchantTransactionId}/status`
@@ -101,7 +101,7 @@ const checkStatus = async (req, res) => {
             return res.redirect(getFailureRedirectURL());
         }
     } catch (error) {
-        console.error("Error in checkStatus:", error);
+        console.error("Error in checkStatus:", error.response.data);
 
         return res.status(500).send("Internal Server Error");
     }
