@@ -3,7 +3,6 @@ const donationController = require('../controllers/donationController');
 
 const Router = express.Router();
 
-// All your routes will go here
 Router.get('/:id', donationController.getDonation);
 Router.delete('/:id', donationController.deleteDonation);
 

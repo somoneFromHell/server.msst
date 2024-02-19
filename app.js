@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 const fs = require("fs");
 
 const donationRouter = require('./routes/donationRoutes');
+const donateRourer = require('./routes/donatieRouts ');
 const memberRouter = require('./routes/memberRoutes');
 const authRouter = require('./routes/authRouts');
 const paymentRouter = require('./routes/paymentRouts');
@@ -71,6 +72,7 @@ app.use('/api/v1/donations', donationRouter);
 app.use('/api/v1/members', memberRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/payment', paymentRouter);
+app.use('/api/v1/donate', donateRourer);
 app.use('/api/v1/gallery', galleryRouter);
 app.use('/api/v1/banner', bannerRouter);
 

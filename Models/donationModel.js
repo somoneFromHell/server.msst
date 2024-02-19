@@ -14,23 +14,12 @@ const DonationsSchema = new mongoose.Schema(
             validate: [validator.isEmail, 'Please enter a valid Email'],
             trim: true,
         },
-        address: {
-            type: String,
-            required: true,
-            trim: true,
-        }, contact: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        city: {
-            type: String,
-            required: true,
-            trim: true,
-        },
         phone: {
+            type: String,
+            trim: true,
+        },
+        altPhone: {
             type: Number,
-            required: true,
             trim: true,
         },
         amount: {
@@ -39,8 +28,6 @@ const DonationsSchema = new mongoose.Schema(
         },
         paymentMethod: {
             type: String,
-            enum: ['Credit Card', 'PayPal', 'Bank Transfer', 'Other'],
-            required: true,
         },
         transactionId: {
             type: String,
@@ -50,7 +37,10 @@ const DonationsSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-       
+        IspaymentSuccess: {
+            type: Boolean,
+            dafault: false
+        },
         recordLog: {
             type: Array,
             required: [{ Date: Date.now(), Message: String }],
