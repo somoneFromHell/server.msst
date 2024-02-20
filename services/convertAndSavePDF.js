@@ -1,11 +1,11 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-exports.convertAndSavePDF = async (html,pdfPath) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+exports.convertAndSavePDF = async (html, fileName) => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  const htmlContent = `
+    const htmlContent = `
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -285,16 +285,17 @@ exports.convertAndSavePDF = async (html,pdfPath) => {
   
   `;
 
-  await page.setContent(html);
+    await page.setContent(html);
 
-  const pdfPath = '../Uploads/DonationRecipts/invoice.pdf';
+    const pdfPath = `Uploads/DonationRecipts/${fileName}`;
 
-  await page.pdf({
-    path: pdfPath,
-    format: 'A4',
-  });
+    await page.pdf({
+        path: pdfPath,
+        format: 'A4',
+    });
 
-  console.log(`PDF saved to: ${pdfPath}`);
+    console.log(`PDF saved to: ${pdfPath}`);
 
-  await browser.close();
+    await browser.close();
+    return fileName;
 };

@@ -11,17 +11,8 @@ const gallarySchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-  },
-  deletedAt: {
-    type: Date,
-  },
-});
+
+}, { timestamps: true });
 
 const gallaryMasterModel = mongoose.model("GallaryMaster", gallarySchema);
 

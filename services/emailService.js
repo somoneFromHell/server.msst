@@ -63,16 +63,6 @@ exports.sendEmailForNewMember = catchAsync(async (req, res, next) => {
         from: process.env.EMAIL_USER || "akash@barodaweb.net",
         to: response.email,
         subject: 'New Membership Request',
-        html: updatedTemplate,
-    },
-        (error, info) => {
-            if (error) {
-                updateRecordLogMembers(response._id, `Error sending email :${error}`)
-
-            } else {
-
-                updateRecordLogMembers(response._id, `Email sent :${info.response}`)
-
-            }
-        })
+        html: updatedTemplate
+    })
 })

@@ -58,8 +58,8 @@ exports.addMember = catchAsync(async (req, res, next) => {
 
     const body = req.body;
     body.image = req.file.filename
-console.log("email",process.env.EMAIL_USER)
-console.log("pass______________",process.env.EMAIL_PASS)
+    console.log("email", process.env.EMAIL_USER)
+    console.log("pass______________", process.env.EMAIL_PASS)
     const response = await Member.create(body);
     const custommerPlaceholders = {
         "##name##": response.firstName + " " + response.lastName,
@@ -83,11 +83,11 @@ console.log("pass______________",process.env.EMAIL_PASS)
     },
         (error, info) => {
             if (error) {
-                updateRecordLogMembers(response._id,`Error sending email :${error}`)
-               console.log("email Error")
+                updateRecordLogMembers(response._id, `Error sending email :${error}`)
+                console.log("email Error")
             } else {
-                
-                updateRecordLogMembers(response._id,`Email sent :${info.response}`)
+
+                updateRecordLogMembers(response._id, `Email sent :${info.response}`)
                 console.log("email success")
 
             }

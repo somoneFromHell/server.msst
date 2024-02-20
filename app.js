@@ -68,6 +68,7 @@ app.use(compression());
 app.use('/api/v1/member-img', express.static('Uploads/Member-Images'));
 app.use('/api/v1/banner-img', express.static('Uploads/banner'));
 app.use('/api/v1/gallery-img', express.static('Uploads/gallery'));
+app.use('/api/v1/donation-ricipt', express.static('Uploads/DonationRecipts'));
 
 app.use('/api/v1/donations', donationRouter);
 app.use('/api/v1/members', memberRouter);

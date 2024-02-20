@@ -26,6 +26,14 @@ const DonationsSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        donationId: {
+            type: String,
+            default: `SMSST${Date.now()}`
+        }
+        ,
+        donationRecipt: {
+            type: String,
+        },
         paymentMethod: {
             type: String,
         },
@@ -44,6 +52,9 @@ const DonationsSchema = new mongoose.Schema(
         recordLog: {
             type: Array,
             required: [{ Date: Date.now(), Message: String }],
+        },
+        donationReciptHTML: {
+            type: String
         }
     }
     ,
