@@ -16,6 +16,7 @@ const authRouter = require('./routes/authRouts');
 const paymentRouter = require('./routes/paymentRouts');
 const bannerRouter = require('./routes/bannerRoutes')
 const galleryRouter = require('./routes/galleryRoutes');
+const VIdeosRouter = require('./routes/videoRouts');
 const AppError = require('./utils/appError');
 const errorController = require('./controllers/errorController');
 
@@ -77,6 +78,8 @@ app.use('/api/v1/payment', paymentRouter);
 app.use('/api/v1/donate', donateRourer);
 app.use('/api/v1/gallery', galleryRouter);
 app.use('/api/v1/banner', bannerRouter);
+app.use('/api/v1/videos', VIdeosRouter);
+
 
 
 

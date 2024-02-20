@@ -114,7 +114,7 @@ const newDonation = catchAsync(async (req, res) => {
         "##ReciptId##": newAddedDonation.donationId,
         "##Date##": new Date(newAddedDonation.createdAt),
         "##Name##": newAddedDonation.name,
-        "##Amount##": newAddedDonation.amount,
+        "##Amount##": `${newAddedDonation.amount} ₹`,
 
     };
 
